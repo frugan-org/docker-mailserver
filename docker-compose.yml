@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+
+  mailserver:
+    container_name: ${MAILSERVER_NAME}
+    build:
+      context: ./${MAILSERVER_TAG}
+    hostname: ${MAILSERVER_HOSTNAME}
+    domainname: ${MAILSERVER_DOMAINNAME}
+    env_file: .env
+    # More information about the mail-server ports:
+    # https://docker-mailserver.github.io/docker-mailserver/edge/config/security/understanding-the-ports/
+    # To avoid conflicts with yaml base-60 float, DO NOT remove the quotation marks.
+    ports:
+      - "25:25"    # SMTP  (explicit TLS => STARTTLS)
+      - "110:110"  # POP3
+      - "143:143"  # IMAP4 (explicit TLS => STARTTLS)
+      - "465:465"  # ESMTP (implicit TLS)
+      - "587:587"  # ESMTP (explicit TLS => STARTTLS)
+      - "993:993"  # IMAP4 (implicit TLS)
+      - "995:995"  # POP3 (with TLS)
+    volumes:
+      - ${PWD}/mailserver/data:/var/mail
+      - ${PWD}/mailserver/state:/var/mail-state
+      - ${PWD}/mailserver/logs:/var/log/mail
+      - ${PWD}/mailserver/config:/tmp/docker-mailserver
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    stop_grace_period: 1m
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
