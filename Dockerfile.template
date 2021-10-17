@@ -3,4 +3,5 @@ FROM mailserver/docker-mailserver:%%TAG%%
 RUN \
   apt-get -qq update && \
   apt-get -qq install \
-    incron
+    incron \
+    vim
