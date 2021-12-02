@@ -1,4 +1,4 @@
-FROM mailserver/docker-mailserver:v10.3.0
+FROM mailserver/docker-mailserver:10.3.0
 
 RUN \
   apt-get -qq update && \
