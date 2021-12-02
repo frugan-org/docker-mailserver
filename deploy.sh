@@ -11,7 +11,8 @@ deploy() {
 }
 
 TAGS=(
-  'latest'
+  'v10.2.0'
+  'v10.3.0'
 )
 
 for TAG in ${TAGS[*]}; do
