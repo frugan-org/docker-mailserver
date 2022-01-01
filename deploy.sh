@@ -13,6 +13,7 @@ deploy() {
 TAGS=(
   10.2.0
   10.3.0
+  10.4.0
 )
 
 for TAG in ${TAGS[*]}; do
